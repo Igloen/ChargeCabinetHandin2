@@ -83,4 +83,4 @@ namespace ChargeCabinetLibrary
         // Her mangler de andre trigger handlere
     }
 }
-}
+
