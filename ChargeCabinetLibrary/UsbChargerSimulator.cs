@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChargeCabinetLibrary
 {
-    public class UsbChargerSimulator
+    public class UsbChargerSimulator : IUsbCharger
     {
         // Constants
         private const double MaxCurrent = 500.0; // mA
