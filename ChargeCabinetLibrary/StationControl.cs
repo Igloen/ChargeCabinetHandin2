@@ -15,7 +15,7 @@ namespace ChargeCabinetLibrary
             Available,
             Locked,
             DoorOpen
-        };
+        }
 
         // Her mangler flere member variable
         private LadeskabState _state;
@@ -83,4 +83,4 @@ namespace ChargeCabinetLibrary
         // Her mangler de andre trigger handlere
     }
 }
-}
+

@@ -233,5 +233,5 @@ namespace ChargeCabinet.Test.Unit
             }
 
         }
-    }
 }
+
