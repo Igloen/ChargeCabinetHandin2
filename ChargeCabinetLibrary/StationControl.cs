@@ -21,6 +21,7 @@ namespace ChargeCabinetLibrary
         private LadeskabState _state;
         private IUsbCharger _charger;
         private int _oldId;
+        private IDoor _door;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
