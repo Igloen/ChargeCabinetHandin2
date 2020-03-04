@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace ChargeCabinetLibrary
             Available,
             Locked,
             DoorOpen
-        };
+        }
 
         // Her mangler flere member variable
         private LadeskabState _state;
