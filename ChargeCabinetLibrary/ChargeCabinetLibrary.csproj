@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Door.cs" />
+    <Compile Include="IDoor.cs" />
     <Compile Include="IUsbCharger.cs" />
     <Compile Include="StationControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
