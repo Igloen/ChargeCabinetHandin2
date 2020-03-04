@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 namespace ChargeCabinetLibrary
 {
    public interface IDoor
-   {/*dssd*/ISafeSerializationData as 
+   {
    }
 }
