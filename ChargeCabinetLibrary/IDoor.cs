@@ -8,6 +8,7 @@ namespace ChargeCabinetLibrary
 {
     public interface IDoor
     {
-
+        event EventHandler<DoorStateChangedEventArgs> DoorChangedEvent;
+        
     }
 }
