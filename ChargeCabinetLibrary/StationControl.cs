@@ -81,6 +81,21 @@ namespace ChargeCabinetLibrary
             }
         }
 
+        public void DoorOpened()
+        {
+            Console.WriteLine("Tilslut telefon");
+        }
+
+
+        public void DoorClosed()
+        {
+            Console.WriteLine("Indlæs RFID");
+        }
+
+      
+
+
+
         // Her mangler de andre trigger handlere
     }
 }
