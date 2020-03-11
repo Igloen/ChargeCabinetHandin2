@@ -27,5 +27,10 @@ namespace ChargeCabinetLibrary
         void StartCharge();
         // Stop charging
         void StopCharge();
-    }
+
+        void SimulateConnected(bool connected);
+
+        void SimulateOverload(bool overload);
+
+      }
 }
