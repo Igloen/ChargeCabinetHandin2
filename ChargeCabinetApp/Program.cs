@@ -15,6 +15,7 @@ namespace ChargeCabinetApp
             // Assemble your system here from all the classes
             IDoor _door = new Door();
             IRFidReader _rfidReader = new RFidReader();
+            StationControl _stationControl = new StationControl();
 
             //Use this
 
@@ -33,11 +34,11 @@ namespace ChargeCabinetApp
                         break;
 
                     case 'O':
-                        _door.OnDoorOpen();
+                        _door.DoorOpened();
                         break;
 
                     case 'C':
-                        _door.OnDoorClose();
+                        _door.DoorClosed();
                         break;
 
                     case 'R':
