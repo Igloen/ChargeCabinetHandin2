@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChargeControl.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="IDoor.cs" />
     <Compile Include="IUsbCharger.cs" />
+    <Compile Include="RFidReader.cs" />
     <Compile Include="StationControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsbChargerSimulator.cs" />
