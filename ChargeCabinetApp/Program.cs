@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ChargeCabinetLibrary;
 
 namespace ChargeCabinetApp
 {
@@ -10,44 +12,47 @@ namespace ChargeCabinetApp
     {
         static void Main(string[] args)
         {
-         // Assemble your system here from all the classes
-         //Use this
+            // Assemble your system here from all the classes
+            IDoor _door = new Door();
+            IRFidReader _rfidReader = new RFidReader();
 
-         bool finish = false;
-         do
-         {
-            string input;
-            System.Console.WriteLine("Indtast E, O, C, R: ");
-            input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input)) continue;
+            //Use this
 
-            switch (input[0])
+            bool finish = false;
+            do
             {
-               case 'E':
-                  finish = true;
-                  break;
+                string input;
+                System.Console.WriteLine("Indtast E, O, C, R: ");
+                input = Console.ReadLine();
+                if (string.IsNullOrEmpty(input)) continue;
 
-               case 'O':
-                  door.OnDoorOpen();
-                  break;
+                switch (input[0])
+                {
+                    case 'E':
+                        finish = true;
+                        break;
 
-               case 'C':
-                  door.OnDoorClose();
-                  break;
+                    case 'O':
+                        _door.OnDoorOpen();
+                        break;
 
-               case 'R':
-                  System.Console.WriteLine("Indtast RFID id: ");
-                  string idString = System.Console.ReadLine();
+                    case 'C':
+                        _door.OnDoorClose();
+                        break;
 
-                  int id = Convert.ToInt32(idString);
-                  rfidReader.OnRfidRead(id);
-                  break;
+                    case 'R':
+                        System.Console.WriteLine("Indtast RFID id: ");
+                        string idString = System.Console.ReadLine();
 
-               default:
-                  break;
-            }
+                        int id = Convert.ToInt32(idString);
+                        _rfidReader.OnRfidRead(id);
+                        break;
 
-         } while (!finish);
-      }
+                    default:
+                        break;
+                }
+
+            } while (!finish);
+        }
     }
 }

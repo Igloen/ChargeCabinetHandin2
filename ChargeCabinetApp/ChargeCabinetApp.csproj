@@ -49,5 +49,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChargeCabinetLibrary\ChargeCabinetLibrary.csproj">
+      <Project>{eefcdcfe-40d7-4286-b3b1-e198fd0a3588}</Project>
+      <Name>ChargeCabinetLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
