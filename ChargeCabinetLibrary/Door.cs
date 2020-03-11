@@ -14,13 +14,13 @@ namespace ChargeCabinetLibrary
         public event EventHandler<DoorStateChangedEventArgs> DoorChangedEvent;
         public void LockDoor()
         {
-            throw new NotImplementedException();
+            OnDoorStateChanged(new DoorStateChangedEventArgs { StateLocked = true });
         }
 
         public void UnlockDoor()
         {
-            OnDoorStateChanged(new DoorStateChangedEventArgs{ State = true});
-            _doorLocked = false;
+            OnDoorStateChanged(new DoorStateChangedEventArgs{ StateLocked = false});
+            
 
         }
 
@@ -28,7 +28,7 @@ namespace ChargeCabinetLibrary
         {
             if (state != _doorOpen)
             {
-                OnDoorStateChanged(new DoorStateChangedEventArgs { State = state});
+                OnDoorStateChanged(new DoorStateChangedEventArgs { StateOpen = state});
                 _doorOpen = state;
             }
         }
@@ -45,7 +45,8 @@ namespace ChargeCabinetLibrary
 
     public class DoorStateChangedEventArgs : EventArgs
     {
-        public bool State { get; set; }
+        public bool StateOpen { get; set; }
+        public bool StateLocked { get; set; }
     }
 
     
