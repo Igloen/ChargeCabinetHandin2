@@ -15,7 +15,6 @@ namespace ChargeCabinetApp
             // Assemble your system here from all the classes
             IDoor _door = new Door();
             IRFidReader _rfidReader = new RFidReader();
-            StationControl _stationControl = new StationControl();
 
             //Use this
 
@@ -46,7 +45,7 @@ namespace ChargeCabinetApp
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        _rfidReader.OnRfidRead(id);
+                        //_rfidReader.OnRfidRead(id);
                         break;
 
                     default:

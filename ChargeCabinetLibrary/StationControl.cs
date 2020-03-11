@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ChargeCabinetLibrary
@@ -22,6 +23,7 @@ namespace ChargeCabinetLibrary
         private IUsbCharger _charger;
         private int _oldId;
         private IDoor _door;
+        private DoorStateChangedEventArgs _doorState;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
@@ -55,7 +57,25 @@ namespace ChargeCabinetLibrary
                     break;
 
                 case LadeskabState.DoorOpen:
-                    // Ignore
+
+                    //if (_doorState.StateOpen.Equals(true))
+                    //{
+                    //    DoorOpened();
+
+                    //}
+
+                    //while (true)
+                    //{
+                    //    if (_doorState.StateOpen.Equals(false))
+                    //    {
+                    //        DoorClosed();
+                    //        _state = LadeskabState.Available;
+                    //        break;
+                    //    }
+                        
+
+                    //}
+
                     break;
 
                 case LadeskabState.Locked:
