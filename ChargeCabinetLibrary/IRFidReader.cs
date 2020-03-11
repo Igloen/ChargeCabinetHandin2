@@ -8,9 +8,9 @@ namespace ChargeCabinetLibrary
 {
    public interface IRFidReader
    {
-      void SetID(int newID);
+       event EventHandler<RFidChangedEventArgs> RFidChangedEvent;
 
-      void OnRFidChanged(RFidChangedEventArgs e); // SKal denne her stå her???????????? 
+       void SetID(int newID);
 
    }
 }

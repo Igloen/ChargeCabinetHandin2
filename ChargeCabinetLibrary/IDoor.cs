@@ -11,9 +11,9 @@ namespace ChargeCabinetLibrary
     {
         event EventHandler<DoorStateChangedEventArgs> DoorChangedEvent;
 
-        void LockDoor(); //Vi ved ikke hvilken type det er, gætter på bool. 
+        void LockDoor(); 
 
-        void UnlockDoor(); //Samme her.
+        void UnlockDoor(); 
 
         void OnDoorStateChanged(DoorStateChangedEventArgs e);
 
