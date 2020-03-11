@@ -11,6 +11,15 @@ namespace ChargeCabinetLibrary
         private bool _doorOpen = false;
 
         public event EventHandler<DoorStateChangedEventArgs> DoorChangedEvent;
+        public bool LockDoor()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UnlockDoor()
+        {
+            throw new NotImplementedException();
+        }
 
         public void SetDoorState(bool state)
         {
