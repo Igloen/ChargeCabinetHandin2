@@ -44,6 +44,7 @@
     <Compile Include="ChargeControl.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="IDoor.cs" />
+    <Compile Include="IRFidReader.cs" />
     <Compile Include="IUsbCharger.cs" />
     <Compile Include="RFidReader.cs" />
     <Compile Include="StationControl.cs" />

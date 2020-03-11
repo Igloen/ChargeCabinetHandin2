@@ -14,5 +14,8 @@ namespace ChargeCabinetLibrary
         void LockDoor(); //Vi ved ikke hvilken type det er, gætter på bool. 
 
         void UnlockDoor(); //Samme her.
+
+        void OnDoorStateChanged(DoorStateChangedEventArgs e);
+
     }
 }

@@ -34,7 +34,7 @@ namespace ChargeCabinetLibrary
         }
 
 
-        protected virtual void OnDoorStateChanged(DoorStateChangedEventArgs e)
+        public virtual void OnDoorStateChanged(DoorStateChangedEventArgs e)
         {
             DoorChangedEvent?.Invoke(this, e);
         }
