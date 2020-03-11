@@ -33,11 +33,11 @@ namespace ChargeCabinetApp
                         break;
 
                     case 'O':
-                        _door.DoorOpened();
+                        //_door.DoorOpened();
                         break;
 
                     case 'C':
-                        _door.DoorClosed();
+                        //_door.DoorClosed();
                         break;
 
                     case 'R':
