@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChargeCabinetLibrary
 {
-    public class RFidReader
+    public class RFidReader : IRFidReader
     {
         private int id;
 
@@ -18,7 +18,7 @@ namespace ChargeCabinetLibrary
         }
 
 
-        protected virtual void OnRFidChanged(RFidChangedEventArgs e)
+        public virtual void OnRFidChanged(RFidChangedEventArgs e)
         {
             RFidChangedEvent?.Invoke(this, e);
         }
