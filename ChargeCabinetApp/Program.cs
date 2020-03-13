@@ -16,6 +16,8 @@ namespace ChargeCabinetApp
             IDoor _door = new Door();
             IRFidReader _rfidReader = new RFidReader();
 
+            //Use this
+
             bool finish = false;
             do
             {
@@ -31,11 +33,13 @@ namespace ChargeCabinetApp
                         break;
 
                     case 'O':
-                        _door.UnlockDoor();
+                        //_door.DoorOpened();
+                        _door.SetDoorState( true);
                         break;
 
                     case 'C':
-                        _door.LockDoor();
+                        //_door.DoorClosed();
+                        _door.SetDoorState(false);
                         break;
 
                     case 'R':
@@ -44,6 +48,7 @@ namespace ChargeCabinetApp
 
                         int id = Convert.ToInt32(idString);
                         //_rfidReader.OnRfidRead(id);
+
                         break;
 
                     default:
