@@ -34,10 +34,12 @@ namespace ChargeCabinetApp
 
                     case 'O':
                         //_door.DoorOpened();
+                        _door.SetDoorState( true);
                         break;
 
                     case 'C':
                         //_door.DoorClosed();
+                        _door.SetDoorState(false);
                         break;
 
                     case 'R':
@@ -46,6 +48,7 @@ namespace ChargeCabinetApp
 
                         int id = Convert.ToInt32(idString);
                         //_rfidReader.OnRfidRead(id);
+
                         break;
 
                     default:

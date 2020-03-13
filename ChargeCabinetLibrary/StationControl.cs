@@ -70,23 +70,7 @@ namespace ChargeCabinetLibrary
 
                 case LadeskabState.DoorOpen:
 
-                    //if (_doorState.StateOpen.Equals(true))
-                    //{
-                    //    DoorOpened();
-
-                    //}
-
-                    //while (true)
-                    //{
-                    //    if (_doorState.StateOpen.Equals(false))
-                    //    {
-                    //        DoorClosed();
-                    //        _state = LadeskabState.Available;
-                    //        break;
-                    //    }
-                        
-
-                    //}
+                 //intet sker her 
 
                     break;
 
@@ -127,7 +111,18 @@ namespace ChargeCabinetLibrary
 
         private void HandleDoorChangedEvent(object sender, DoorStateChangedEventArgs e)
         {
-           
+            if (e.StateOpen = true)                     //Når en person åbner skabet
+            {
+                DoorOpened();
+                _state = LadeskabState.DoorOpen;
+            }
+
+            if (e.StateOpen == false)                   // Når en person lukker skabet
+            {
+                DoorClosed();
+                _state = LadeskabState.Available;
+            }
+
         }
 
         private void HandleRFidReaderchangedEvent(object sender, RFidChangedEventArgs e)
