@@ -33,4 +33,6 @@ namespace ChargeCabinetLibrary
         void SimulateOverload(bool overload);
 
       }
+
+    
 }

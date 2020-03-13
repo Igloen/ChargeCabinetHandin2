@@ -15,6 +15,7 @@ namespace ChargeCabinetApp
             // Assemble your system here from all the classes
             IDoor _door = new Door();
             IRFidReader _rfidReader = new RFidReader();
+            IUsbCharger _charger = new UsbChargerSimulator();
 
             //Use this
 
@@ -50,6 +51,18 @@ namespace ChargeCabinetApp
                         //_rfidReader.OnRfidRead(id);
 
                         break;
+
+
+                    case 'K':
+                        System.Console.WriteLine("Telefon er sat til ");
+                        _charger.SimulateConnected(true);
+                        break;
+
+                    case 'L':
+                        System.Console.WriteLine("Kabel Overloaded ");
+                        _charger.SimulateOverload(true);
+                        break;
+
 
                     default:
                         break;

@@ -116,4 +116,5 @@ namespace ChargeCabinetLibrary
             CurrentValueEvent?.Invoke(this, new CurrentEventArgs() { Current = this.CurrentValue });
         }
     }
+   
 }

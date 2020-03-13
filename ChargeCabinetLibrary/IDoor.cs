@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace ChargeCabinetLibrary
 {
+
+    public class DoorStateChangedEventArgs : EventArgs
+    {
+        public bool StateOpen { get; set; }
+        public bool StateLocked { get; set; }
+    }
+
+
     public interface IDoor
     {
         event EventHandler<DoorStateChangedEventArgs> DoorChangedEvent;

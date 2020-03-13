@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace ChargeCabinetLibrary
 {
-    public class ChargeControl
+    public class ChargeControl 
     {
+
+        public ChargeControl()
+        {
+
+        }
+
         public bool IsConnected()
         {
             return true;
