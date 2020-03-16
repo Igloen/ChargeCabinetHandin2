@@ -20,7 +20,8 @@ namespace ChargeCabinetLibrary
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        private IUsbCharger _charger;
+        //private IUsbCharger _charger;
+        private ChargeControl _chargeControl;
         private int _oldId;
         private IDoor _door;
         private DoorStateChangedEventArgs _doorState;
@@ -36,10 +37,10 @@ namespace ChargeCabinetLibrary
             {
                 case LadeskabState.Available:
                     // Check for ladeforbindelse
-                    if (_charger.Connected)
+                    if (_chargeControl.IsConnected())
                     {
                         _door.LockDoor();
-                        _charger.StartCharge();
+                        _chargeControl.StartCharge();
                         _oldId = id;
                         using (var writer = File.AppendText(logFile))
                         {
@@ -82,7 +83,7 @@ namespace ChargeCabinetLibrary
                     // Check for correct ID
                     if (id == _oldId)
                     {
-                        _charger.StopCharge();
+                        _chargeControl.StopCharge();
                         _door.UnlockDoor();
                         using (var writer = File.AppendText(logFile))
                         {

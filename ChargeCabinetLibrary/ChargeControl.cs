@@ -8,14 +8,22 @@ namespace ChargeCabinetLibrary
 {
     public class ChargeControl
     {
+        private IUsbCharger _charger;
+        public ChargeControl()
+        {
+            _charger = new UsbChargerSimulator(); //??? eller parameter?
+        }
+
         public bool IsConnected()
         {
-            return true;
+            bool connection = _charger.Connected;
+
+            return connection;
         }
 
         public void StartCharge()
         {
-
+            _charger.StartCharge();
         }
 
         public void StopCharge()
