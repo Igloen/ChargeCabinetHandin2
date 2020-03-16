@@ -47,6 +47,10 @@ namespace ChargeCabinetLibrary
                 _ticksSinceStart++;
                 if (Connected && !_overload)
                 {
+
+                    // 500 - X *(500 -2.5)/ (20*60*1000 ms /200ms)
+
+
                     double newValue = MaxCurrent -
                                       _ticksSinceStart * (MaxCurrent - FullyChargedCurrent) / (ChargeTimeMinutes * 60 * 1000 / CurrentTickInterval);
                     CurrentValue = Math.Max(newValue, FullyChargedCurrent);
@@ -111,9 +115,11 @@ namespace ChargeCabinetLibrary
             _charging = false;
         }
 
+
         private void OnNewCurrent()
         {
             CurrentValueEvent?.Invoke(this, new CurrentEventArgs() { Current = this.CurrentValue });
         }
     }
+   
 }

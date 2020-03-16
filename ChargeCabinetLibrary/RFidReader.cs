@@ -26,7 +26,6 @@ namespace ChargeCabinetLibrary
     }
 
 
-
     public class RFidChangedEventArgs : EventArgs
     {
         public int ID { get; set; }

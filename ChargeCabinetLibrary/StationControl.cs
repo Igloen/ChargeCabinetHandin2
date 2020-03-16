@@ -22,13 +22,26 @@ namespace ChargeCabinetLibrary
         private LadeskabState _state;
         //private IUsbCharger _charger;
         private ChargeControl _chargeControl;
+        private IRFidReader _reader; 
         private int _oldId;
         private IDoor _door;
         private DoorStateChangedEventArgs _doorState;
 
-        private string logFile = "logfile.txt"; // Navnet på systemets log-fil
+        private string logFile = "logfile.txt";                             // Navnet på systemets log-fil
 
-        // Her mangler constructor
+        public bool _doorOpen { get; set;} //Hvad bruges den her til? - Mads
+
+
+        public StationControl(IDoor door, IRFidReader reader, ChargeControl chargeControl)
+        {
+            _door = door; 
+            _reader = reader;
+            _chargeControl = chargeControl;
+
+
+            _door.DoorChangedEvent += HandleDoorChangedEvent;               //Sørger for at når der sker et event i døren, så kaldes event-handleren
+            _reader.RFidChangedEvent += HandleRFidReaderchangedEvent;
+        }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
@@ -59,23 +72,7 @@ namespace ChargeCabinetLibrary
 
                 case LadeskabState.DoorOpen:
 
-                    //if (_doorState.StateOpen.Equals(true))
-                    //{
-                    //    DoorOpened();
-
-                    //}
-
-                    //while (true)
-                    //{
-                    //    if (_doorState.StateOpen.Equals(false))
-                    //    {
-                    //        DoorClosed();
-                    //        _state = LadeskabState.Available;
-                    //        break;
-                    //    }
-                        
-
-                    //}
+                 //intet sker her 
 
                     break;
 
@@ -113,8 +110,27 @@ namespace ChargeCabinetLibrary
             Console.WriteLine("Indlæs RFID");
         }
 
-      
 
+        private void HandleDoorChangedEvent(object sender, DoorStateChangedEventArgs e)
+        {
+            if (e.StateOpen = true)                     //Når en person åbner skabet
+            {
+                DoorOpened();
+                _state = LadeskabState.DoorOpen;
+            }
+
+            if (e.StateOpen == false)                   // Når en person lukker skabet
+            {
+                DoorClosed();
+                _state = LadeskabState.Available;
+            }
+
+        }
+
+        private void HandleRFidReaderchangedEvent(object sender, RFidChangedEventArgs e)
+        {
+            RfidDetected(e.ID);
+        }
 
 
         // Her mangler de andre trigger handlere

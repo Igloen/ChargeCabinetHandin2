@@ -8,20 +8,20 @@ namespace ChargeCabinetLibrary
 {
     public class Door : IDoor
     {
-        public bool _doorOpen = false;
-        public bool _doorLocked = false; 
+        public bool _doorOpen;
+        public bool _doorLocked; 
 
         public event EventHandler<DoorStateChangedEventArgs> DoorChangedEvent;
         public void LockDoor()
         {
             OnDoorStateChanged(new DoorStateChangedEventArgs { StateLocked = true });
-            OnDoorStateChanged(new DoorStateChangedEventArgs { StateOpen = false });
+            //OnDoorStateChanged(new DoorStateChangedEventArgs { StateOpen = false });
         }
 
         public void UnlockDoor()
         {
             OnDoorStateChanged(new DoorStateChangedEventArgs{ StateLocked = false});
-            OnDoorStateChanged(new DoorStateChangedEventArgs{StateOpen = true});
+            
         }
 
         public void SetDoorState(bool state)
@@ -42,13 +42,6 @@ namespace ChargeCabinetLibrary
     }
 
     
-
-    public class DoorStateChangedEventArgs : EventArgs
-    {
-        public bool StateOpen { get; set; }
-        public bool StateLocked { get; set; }
-    }
-
     
 
 }

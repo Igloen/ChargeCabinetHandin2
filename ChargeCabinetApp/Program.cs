@@ -13,8 +13,13 @@ namespace ChargeCabinetApp
         static void Main(string[] args)
         {
             // Assemble your system here from all the classes
-            IDoor _door = new Door();
             IRFidReader _rfidReader = new RFidReader();
+            IDoor _door = new Door();
+            IUsbCharger _charger = new UsbChargerSimulator();
+            
+            ChargeControl _chargeControl = new ChargeControl(_charger);
+            StationControl _stationControl = new StationControl(_door, _rfidReader, _chargeControl);
+            
 
             //Use this
 
@@ -33,11 +38,13 @@ namespace ChargeCabinetApp
                         break;
 
                     case 'O':
-                        _door.DoorOpened();
+                        //_door.DoorOpened();
+                        _door.SetDoorState( true);
                         break;
 
                     case 'C':
-                        _door.DoorClosed();
+                        //_door.DoorClosed();
+                        _door.SetDoorState(false);
                         break;
 
                     case 'R':
@@ -45,8 +52,21 @@ namespace ChargeCabinetApp
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        _rfidReader.OnRfidRead(id);
+                        //_rfidReader.OnRfidRead(id);
+
                         break;
+
+
+                    case 'K':
+                        System.Console.WriteLine("Telefon er sat til ");
+                        _charger.SimulateConnected(true);
+                        break;
+
+                    case 'L':
+                        System.Console.WriteLine("Kabel Overloaded ");
+                        _charger.SimulateOverload(true);
+                        break;
+
 
                     default:
                         break;
