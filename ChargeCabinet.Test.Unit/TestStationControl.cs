@@ -17,8 +17,9 @@ namespace ChargeCabinet.Test.Unit
         private IRFidReader _rfidReader;
         private ChargeControl _chargeControl;
 
-        [SetUp]
+        private DoorStateChangedEventArgs _receivedEventArgs;
 
+        [SetUp]
         public void Setup()
         {
             _door = Substitute.For<IDoor>();
@@ -27,7 +28,35 @@ namespace ChargeCabinet.Test.Unit
             
 
             _uut = new StationControl(_door, _rfidReader, _chargeControl);
+
+            _receivedEventArgs = null;
+
+            _uut. += (o, args) =>
+            {
+                _receivedEventArgs = args;
+            };
+
+
         }
+
+
+        [Test]
+        public void HandleDoorChangedEventTest()
+        {
+         
+         _door.SetDoorState(true);
+
+            //Assert.That(_receivedEventArgs, Is.Not.Null);
+
+            Assert.That(_uut.DoorOpened);
+        }
+
+        [Test]
+        public void DoorOpenTest()
+        {
+            
+        }
+
 
     }
 }

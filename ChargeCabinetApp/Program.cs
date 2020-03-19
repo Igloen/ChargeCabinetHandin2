@@ -19,15 +19,22 @@ namespace ChargeCabinetApp
             
             ChargeControl _chargeControl = new ChargeControl(_charger);
             StationControl _stationControl = new StationControl(_door, _rfidReader, _chargeControl);
-            
+
 
             //Use this
+            //System.Console.WriteLine("Indtast E: Finish, O: Open , C: Close, R: RFid, K: Telefon sat til, L: Overload: ");
+            System.Console.WriteLine("E: Finish");
+            System.Console.WriteLine("O: Open");
+            System.Console.WriteLine("C: Close");
+            System.Console.WriteLine("R: RFid");
+            System.Console.WriteLine("K: Connect phone");
+            System.Console.WriteLine("L: Simulate overload");
+            System.Console.WriteLine("___________________________");
 
             bool finish = false;
             do
             {
                 string input;
-                System.Console.WriteLine("Indtast E: Finish, O: Open , C: Close, R: RFid, K: Telefon sat til, L: Overload: ");
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
 
