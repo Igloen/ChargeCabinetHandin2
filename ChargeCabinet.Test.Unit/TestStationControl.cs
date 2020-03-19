@@ -15,6 +15,7 @@ namespace ChargeCabinet.Test.Unit
         private StationControl _uut;
         private IDoor _door;
         private IRFidReader _rfidReader;
+        private ChargeControl _chargeControl;
 
         [SetUp]
 
@@ -22,8 +23,10 @@ namespace ChargeCabinet.Test.Unit
         {
             _door = Substitute.For<IDoor>();
             _rfidReader = Substitute.For<IRFidReader>();
+            _chargeControl = Substitute.For<ChargeControl>();
+            
 
-            _uut = new StationControl(_door, _rfidReader);
+            _uut = new StationControl(_door, _rfidReader, _chargeControl);
         }
 
     }

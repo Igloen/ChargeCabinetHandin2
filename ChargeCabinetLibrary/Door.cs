@@ -12,6 +12,7 @@ namespace ChargeCabinetLibrary
         public bool _doorLocked; 
 
         public event EventHandler<DoorStateChangedEventArgs> DoorChangedEvent;
+
         public void LockDoor()
         {
             OnDoorStateChanged(new DoorStateChangedEventArgs { StateLocked = true });
