@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChargeCabinetLibrary
 {
-    public class ChargeControl
+    public class ChargeControl : IChargeControl
     {
         private IUsbCharger _charger;
         
@@ -36,7 +36,7 @@ namespace ChargeCabinetLibrary
             _charger.StopCharge();
         }
 
-        private void HandleCurrentValueEvent(object sender, CurrentEventArgs e)
+        public void HandleCurrentValueEvent(object sender, CurrentEventArgs e) //lavet til public eller virker test klassen ikke
         {
 
             if (e.Current == 0)

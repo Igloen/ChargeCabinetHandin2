@@ -17,7 +17,7 @@ namespace ChargeCabinetApp
             IDoor _door = new Door();
             IUsbCharger _charger = new UsbChargerSimulator();
             
-            ChargeControl _chargeControl = new ChargeControl(_charger);
+            IChargeControl _chargeControl = new ChargeControl(_charger);
             StationControl _stationControl = new StationControl(_door, _rfidReader, _chargeControl);
 
 

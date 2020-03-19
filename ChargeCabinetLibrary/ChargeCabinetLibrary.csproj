@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="ChargeControl.cs" />
     <Compile Include="Door.cs" />
+    <Compile Include="IChargeControl.cs" />
     <Compile Include="IDoor.cs" />
     <Compile Include="IRFidReader.cs" />
     <Compile Include="IUsbCharger.cs" />
