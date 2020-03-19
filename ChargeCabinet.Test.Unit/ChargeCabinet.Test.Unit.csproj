@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestDoor.cs" />
+    <Compile Include="TestRFidReader.cs" />
     <Compile Include="TestStationControl.cs" />
     <Compile Include="TestUsbChargerSimulator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
