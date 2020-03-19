@@ -9,11 +9,17 @@ namespace ChargeCabinetLibrary
     public class ChargeControl
     {
         private IUsbCharger _charger;
+        
 
         public ChargeControl(IUsbCharger charger)
         {
             _charger = charger;
+
+            _charger.CurrentValueEvent += HandleCurrentValueEvent; 
+            
         }
+
+
 
         public bool IsConnected()
         {
@@ -30,7 +36,7 @@ namespace ChargeCabinetLibrary
             _charger.StopCharge();
         }
 
-        private void CurrentchangedEvent(object sender, CurrentEventArgs e)
+        private void HandleCurrentValueEvent(object sender, CurrentEventArgs e)
         {
 
             if (e.Current == 0)
