@@ -39,5 +39,21 @@ namespace ChargeCabinet.Test.Unit
 
         }
 
+        [Test]
+        public void LockDoorTest()
+        {
+            _uut.LockDoor();
+
+            Assert.That(_receivedEventArgs.StateLocked, Is.True);
+        }
+
+        [Test]
+        public void UnlockDoorTest()
+        {
+            _uut.UnlockDoor();
+
+            Assert.That(_receivedEventArgs.StateLocked, Is.False);
+        }
+
     }
 }
