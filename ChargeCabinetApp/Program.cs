@@ -27,7 +27,7 @@ namespace ChargeCabinetApp
             do
             {
                 string input;
-                System.Console.WriteLine("Indtast E, O, C, R: ");
+                System.Console.WriteLine("Indtast E: Finish, O: Open , C: Close, R: RFid, K: Telefon sat til, L: Overload: ");
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
 
@@ -52,7 +52,7 @@ namespace ChargeCabinetApp
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        //_rfidReader.OnRfidRead(id);
+                        _rfidReader.SetID(id);
 
                         break;
 

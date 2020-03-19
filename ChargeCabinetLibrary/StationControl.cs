@@ -15,7 +15,7 @@ namespace ChargeCabinetLibrary
         {
             Available,
             Locked,
-            DoorOpen
+            DoorOpen 
         }
 
         // Her mangler flere member variable
@@ -113,7 +113,7 @@ namespace ChargeCabinetLibrary
 
         private void HandleDoorChangedEvent(object sender, DoorStateChangedEventArgs e)
         {
-            if (e.StateOpen = true)                     //Når en person åbner skabet
+            if (e.StateOpen == true)                     //Når en person åbner skabet
             {
                 DoorOpened();
                 _state = LadeskabState.DoorOpen;
