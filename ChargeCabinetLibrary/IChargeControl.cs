@@ -8,6 +8,7 @@ namespace ChargeCabinetLibrary
 {
     public interface IChargeControl
     {
+        int _state { get;}
 
         bool IsConnected();
 

@@ -75,6 +75,7 @@ namespace ChargeCabinetLibrary
             Connected = connected;
         }
 
+
         public void SimulateOverload(bool overload)
         {
             _overload = overload;

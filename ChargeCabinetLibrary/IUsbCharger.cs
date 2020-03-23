@@ -19,6 +19,7 @@ namespace ChargeCabinetLibrary
         // Event triggered on new current value
         event EventHandler<CurrentEventArgs> CurrentValueEvent;
 
+
         // Direct access to the current current value
         double CurrentValue { get; }
 
@@ -34,6 +35,7 @@ namespace ChargeCabinetLibrary
         void SimulateConnected(bool connected);
 
         void SimulateOverload(bool overload);
+
 
     }
 

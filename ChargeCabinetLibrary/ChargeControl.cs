@@ -9,17 +9,13 @@ namespace ChargeCabinetLibrary
     public class ChargeControl : IChargeControl
     {
 
-        public enum ChargeControlState
-        {
-            Chargeing, 
-            Charged, 
-            Overload,
-            NotConnected
-        }
-
-        public ChargeControlState _state;
         private IUsbCharger _charger;
-        
+        public int _state { get; private set; }
+        // 0 = intet sker
+        // 2 = oplader
+        // 1 = Fuldopladt
+        // 3 = Overload
+
 
         public ChargeControl(IUsbCharger charger)
         {
@@ -52,26 +48,26 @@ namespace ChargeCabinetLibrary
             if (e.Current == 0)
             {
                 //Intet sker
-                ChargeControlState.NotConnected;
+                _state = 0;
             }
 
             if (e.Current > 0 && e.Current <= 5)
             {
                 Console.WriteLine("Mobil opladning: 100%");
-                ChargeControlState.Charged;
+                _state = 1;
             }
 
             if (e.Current > 5 && e.Current <= 500)
             {
                 Console.WriteLine("Mobil Opladning: Oplader");
-                ChargeControlState.Chargeing;
+                _state = 2;
             }
 
             if (e.Current > 500)
             {
                 System.Console.WriteLine("Der er noget galt, tag straks mobilen ud af laderen.");
                 _charger.StopCharge();
-                ChargeControlState.Overload;
+                _state = 3;
             }
 
 

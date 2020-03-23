@@ -50,7 +50,7 @@ namespace ChargeCabinet.Test.Unit
 
             //Assert.That(_receivedEventArgs, Is.Not.Null);
 
-            Assert.That();
+            //Assert.That();
         }
 
         [Test]

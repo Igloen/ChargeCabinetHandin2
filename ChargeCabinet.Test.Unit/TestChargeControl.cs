@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ChargeCabinetLibrary;
 using NSubstitute;
@@ -18,17 +19,41 @@ namespace ChargeCabinet.Test.Unit
         [SetUp]
         public void Setup()
         {
-            _usbCharger = Substitute.For<IUsbCharger>();
+            _usbCharger = new UsbChargerSimulator();
 
             _uut = new ChargeControl(_usbCharger); 
-        } 
+        }
 
-        [Test]
-        public void testCurrentChange()
+        [TestCase(6)]
+        [TestCase(243)]
+        [TestCase(500)]
+        public void testCurrentCharge_State2_charging(double CurrentValue)
         {
-            _usbCharger.CurrentValue = 55; 
 
-            Assert.That(_uut., is.equalTo(_uut.ChargeControlState.Chargeing))
+
+
+            _uut.HandleCurrentValueEvent(_usbCharger, new CurrentEventArgs() { Current = CurrentValue });
+
+            Assert.That(_uut._state, Is.EqualTo(2));
+
+
+            // _usbCharger.SimulateConnected(true);
+            // _usbCharger.SimulateOverload(false);
+            //_usbCharger.StartCharge();
+
+            // Assert.That(_uut._state,Is.EqualTo(2));
+
+        }
+
+        [TestCase(3)]
+        [TestCase(2)]
+        [TestCase(1)]
+        public void testCurrentCharge_State1_FullyCharged(double CurrentValue)
+        {
+            
+            _uut.HandleCurrentValueEvent(_usbCharger,new CurrentEventArgs(){Current = CurrentValue});
+
+            Assert.That(_uut._state, Is.EqualTo(1));
 
         }
 
