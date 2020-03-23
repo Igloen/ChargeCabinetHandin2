@@ -15,13 +15,23 @@ namespace ChargeCabinet.Test.Unit
     {
         private IChargeControl _uut;
         private IUsbCharger _usbCharger;
+        private CurrentEventArgs _receivedEventArgs;
 
         [SetUp]
         public void Setup()
         {
             _usbCharger = new UsbChargerSimulator();
 
-            _uut = new ChargeControl(_usbCharger); 
+            _uut = new ChargeControl(_usbCharger);
+
+            _receivedEventArgs = null;
+
+            _usbCharger.CurrentValueEvent += (o, args) =>
+            {
+                _receivedEventArgs = args;
+            };
+
+
         }
 
         [TestCase(6)]
@@ -29,9 +39,6 @@ namespace ChargeCabinet.Test.Unit
         [TestCase(500)]
         public void testCurrentCharge_State2_charging(double CurrentValue)
         {
-
-
-
             _uut.HandleCurrentValueEvent(_usbCharger, new CurrentEventArgs() { Current = CurrentValue });
 
             Assert.That(_uut._state, Is.EqualTo(2));
@@ -50,10 +57,41 @@ namespace ChargeCabinet.Test.Unit
         [TestCase(1)]
         public void testCurrentCharge_State1_FullyCharged(double CurrentValue)
         {
-            
-            _uut.HandleCurrentValueEvent(_usbCharger,new CurrentEventArgs(){Current = CurrentValue});
+
+            _uut.HandleCurrentValueEvent(_usbCharger, new CurrentEventArgs() { Current = CurrentValue });
 
             Assert.That(_uut._state, Is.EqualTo(1));
+
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void testConnected(bool state)
+        {
+
+            _usbCharger.SimulateConnected(state);
+
+            Assert.That(_uut.IsConnected(), Is.EqualTo(state));
+
+        }
+
+        [Test]
+        public void TestStartCharge()
+        {
+            
+            _uut.StartCharge();
+
+            Assert.That(_receivedEventArgs,Is.Not.Null);
+
+        }
+
+        [Test]
+        public void TestStopCharge()
+        {
+
+            _uut.StopCharge();
+
+            Assert.That(_receivedEventArgs, Is.Not.Null);
 
         }
 
