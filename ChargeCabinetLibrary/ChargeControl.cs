@@ -19,7 +19,7 @@ namespace ChargeCabinetLibrary
             
         }
 
-
+        
 
         public bool IsConnected()
         {
@@ -51,7 +51,7 @@ namespace ChargeCabinetLibrary
 
             if (e.Current > 5 && e.Current <= 500)
             {
-                Console.WriteLine("Mobil Opladning: Oplader");
+                Console.WriteLine("Mobil Opladning: Oplader " + e.Current);
             }
 
             if (e.Current > 500)
