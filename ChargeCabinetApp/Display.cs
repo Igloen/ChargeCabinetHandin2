@@ -8,7 +8,7 @@ using ChargeCabinetLibrary;
 
 namespace ChargeCabinetApp
 {
-    class Program
+    class Display
     {
         static void Main(string[] args)
         {

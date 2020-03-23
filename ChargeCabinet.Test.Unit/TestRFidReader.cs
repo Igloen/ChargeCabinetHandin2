@@ -33,6 +33,7 @@ namespace ChargeCabinet.Test.Unit
 
         [TestCase(123)]
         [TestCase(321)]
+        [TestCase(323)]
         public void RFidEventArgsIsNotNull(int id)
         {
             _uut.SetID(id);
