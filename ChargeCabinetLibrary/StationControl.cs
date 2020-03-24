@@ -20,7 +20,6 @@ namespace ChargeCabinetLibrary
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        //private IUsbCharger _charger;
         private IChargeControl _chargeControl;
         private IRFidReader _reader; 
         private int _oldId;
