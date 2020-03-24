@@ -8,7 +8,7 @@ using ChargeCabinetLibrary;
 
 namespace ChargeCabinetApp
 {
-    class Program
+    class Display
     {
         static void Main(string[] args)
         {
@@ -17,11 +17,19 @@ namespace ChargeCabinetApp
             IDoor _door = new Door();
             IUsbCharger _charger = new UsbChargerSimulator();
             
-            ChargeControl _chargeControl = new ChargeControl(_charger);
+            IChargeControl _chargeControl = new ChargeControl(_charger);
             StationControl _stationControl = new StationControl(_door, _rfidReader, _chargeControl);
 
 
             //Use this
+            //System.Console.WriteLine("Indtast E: Finish, O: Open , C: Close, R: RFid, K: Telefon sat til, L: Overload: ");
+            System.Console.WriteLine("E: Finish");
+            System.Console.WriteLine("O: Open");
+            System.Console.WriteLine("C: Close");
+            System.Console.WriteLine("R: RFid");
+            System.Console.WriteLine("K: Connect phone");
+            System.Console.WriteLine("L: Simulate overload");
+            System.Console.WriteLine("___________________________");
 
             Console.WriteLine("E: Finish");
             Console.WriteLine("O: Open door");
@@ -59,7 +67,7 @@ namespace ChargeCabinetApp
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        //_rfidReader.OnRfidRead(id);
+                        _rfidReader.SetID(id);
 
                         break;
 

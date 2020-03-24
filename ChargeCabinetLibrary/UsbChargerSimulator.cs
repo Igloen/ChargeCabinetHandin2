@@ -39,6 +39,8 @@ namespace ChargeCabinetLibrary
             _timer.Elapsed += TimerOnElapsed;
         }
 
+
+
         private void TimerOnElapsed(object sender, ElapsedEventArgs e)
         {
             // Only execute if charging
@@ -72,6 +74,7 @@ namespace ChargeCabinetLibrary
         {
             Connected = connected;
         }
+
 
         public void SimulateOverload(bool overload)
         {

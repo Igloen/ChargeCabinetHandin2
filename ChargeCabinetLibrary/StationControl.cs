@@ -15,13 +15,13 @@ namespace ChargeCabinetLibrary
         {
             Available,
             Locked,
-            DoorOpen
+            DoorOpen 
         }
 
         // Her mangler flere member variable
         private LadeskabState _state;
         //private IUsbCharger _charger;
-        private ChargeControl _chargeControl;
+        private IChargeControl _chargeControl;
         private IRFidReader _reader; 
         private int _oldId;
         private IDoor _door;
@@ -29,10 +29,10 @@ namespace ChargeCabinetLibrary
 
         private string logFile = "logfile.txt";                             // Navnet på systemets log-fil
 
-        public bool _doorOpen { get; set;} //Hvad bruges den her til? - Mads
+        public bool _doorOpen { get; set;} 
 
 
-        public StationControl(IDoor door, IRFidReader reader, ChargeControl chargeControl)
+        public StationControl(IDoor door, IRFidReader reader, IChargeControl chargeControl)
         {
             _door = door; 
             _reader = reader;

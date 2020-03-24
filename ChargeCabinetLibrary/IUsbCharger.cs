@@ -6,10 +6,19 @@ using System.Threading.Tasks;
 
 namespace ChargeCabinetLibrary
 {
+
+
+    public class CurrentEventArgs : EventArgs
+    {
+        // Value in mA (milliAmpere)
+        public double Current { set; get; }
+    }
+
     public interface IUsbCharger
     {
         // Event triggered on new current value
         event EventHandler<CurrentEventArgs> CurrentValueEvent;
+
 
         // Direct access to the current current value
         double CurrentValue { get; }
@@ -27,11 +36,7 @@ namespace ChargeCabinetLibrary
 
         void SimulateOverload(bool overload);
 
+
     }
 
-    public class CurrentEventArgs : EventArgs
-    {
-        // Value in mA (milliAmpere)
-        public double Current { set; get; }
-    }
 }
