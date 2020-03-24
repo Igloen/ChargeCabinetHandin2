@@ -12,11 +12,13 @@ namespace ChargeCabinetLibrary
     {
         public bool StateOpen { get; set; }
         public bool StateLocked { get; set; }
+
     }
 
 
     public interface IDoor
     {
+        
         event EventHandler<DoorStateChangedEventArgs> DoorChangedEvent;
 
         void SetDoorState(bool state);
