@@ -64,25 +64,24 @@ namespace ChargeCabinet.Test.Unit
 
         }
 
-        [TestCase(600)]
-        [TestCase(700)]
-        [TestCase(501)]
-        public void testCurrentCharge_State3_Overload(double CurrentValue)
+        [Test]
+        public void testCurrentCharge_State3_Overload()
         {
-
-            _uut.HandleCurrentValueEvent(_usbCharger, new CurrentEventArgs() { Current = CurrentValue });
-
+            _usbCharger.SimulateOverload(true);
+            _uut.StartCharge();
             Assert.That(_uut._state, Is.EqualTo(3));
 
         }
 
-        [TestCase(0)]
-        public void testCurrentCharge_State0_NotConnected(double CurrentValue)
+        [Test]
+        public void testCurrentCharge_State0_NotConnected()
         {
 
-            _uut.HandleCurrentValueEvent(_usbCharger, new CurrentEventArgs() { Current = CurrentValue });
-
+            _usbCharger.SimulateConnected(false);
+            _uut.StartCharge();
             Assert.That(_uut._state, Is.EqualTo(0));
+
+
 
         }
 
