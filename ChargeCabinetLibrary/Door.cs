@@ -31,7 +31,7 @@ namespace ChargeCabinetLibrary
         {
             if (state != DoorOpen)
             {
-                OnDoorStateChanged(new DoorStateChangedEventArgs { StateOpen = state});
+                OnDoorStateChanged(new DoorStateChangedEventArgs { StateOpen = state,StateLocked = DoorLocked});
                 DoorOpen = state;
             }
         }
