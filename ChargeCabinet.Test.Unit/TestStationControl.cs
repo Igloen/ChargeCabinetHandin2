@@ -17,26 +17,36 @@ namespace ChargeCabinet.Test.Unit
         private IDoor _door;
         private IRFidReader _rfidReader;
         private IChargeControl _chargeControl;
+        private IUsbCharger _usbCharger;
 
-        private DoorStateChangedEventArgs _receivedEventArgs;
+        private DoorStateChangedEventArgs _receivedEventArgsDoor;
+        private RFidChangedEventArgs _receivedEventArgsRFid;
+
 
         [SetUp]
         public void Setup()
         {
+            _usbCharger = new UsbChargerSimulator();
             _door = new Door();
-            _rfidReader = Substitute.For<IRFidReader>();
+            _rfidReader = new RFidReader();
             _chargeControl = Substitute.For<IChargeControl>();
             
 
             _uut = new StationControl(_door, _rfidReader, _chargeControl);
 
-            _receivedEventArgs = null;
+            _receivedEventArgsDoor = null;
+            _receivedEventArgsRFid = null;
+
 
             _door.DoorChangedEvent += (o, args) =>
             {
-                _receivedEventArgs = args;
+                _receivedEventArgsDoor = args;
             };
 
+            _rfidReader.RFidChangedEvent += (o, args) =>
+            {
+                _receivedEventArgsRFid = args;
+            };
 
         }
 
@@ -64,10 +74,28 @@ namespace ChargeCabinet.Test.Unit
             }
             _door.SetDoorState(State);
 
-            Assert.That(_receivedEventArgs, Is.Not.True);
+            Assert.That(_receivedEventArgsDoor, Is.Not.True);
 
         }
-        
+
+        [TestCase(true,false,123)]
+        [TestCase(false, false, 323)]
+        [TestCase(true, true, 23)]
+        [TestCase(false, true, 13)]
+        public void RFidDetectetEventChanged_TestState(bool Connection, bool Doorstate, int RFid)
+        {
+
+            _usbCharger.SimulateConnected(Connection);
+            _door.SetDoorState(Doorstate);
+            
+            _rfidReader.SetID(RFid);
+
+            Assert.That(_receivedEventArgsRFid,Is.Not.Null);
+
+
+
+        }
+
         
         
         [Test]

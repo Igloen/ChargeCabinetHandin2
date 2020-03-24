@@ -28,8 +28,6 @@ namespace ChargeCabinetLibrary
 
         private string logFile = "logfile.txt";                             // Navnet på systemets log-fil
 
-        public bool _doorOpen { get; private set;} 
-
 
         public StationControl(IDoor door, IRFidReader reader, IChargeControl chargeControl)
         {
@@ -101,14 +99,12 @@ namespace ChargeCabinetLibrary
         public void DoorOpened()
         {
             Console.WriteLine("Tilslut telefon");
-            _doorOpen = true;
         }
 
 
         public void DoorClosed()
         {
             Console.WriteLine("Indlæs RFID");
-            _doorOpen = false; 
         }
 
 
