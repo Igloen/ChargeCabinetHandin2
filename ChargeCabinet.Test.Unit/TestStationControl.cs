@@ -53,10 +53,11 @@ namespace ChargeCabinet.Test.Unit
             //Assert.That();
         }
         
-        [Test]
-        public void HandleDoorChangedEvent_TestStates()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void HandleDoorChangedEvent_TestStates(bool state)
         {
-            _door.SetDoorState(true);
+            _door.SetDoorState(state);
 
             Assert.That(_receivedEventArgs, Is.Not.True);
 
