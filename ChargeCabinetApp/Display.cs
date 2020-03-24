@@ -31,14 +31,6 @@ namespace ChargeCabinetApp
             System.Console.WriteLine("L: Simulate overload");
             System.Console.WriteLine("___________________________");
 
-            Console.WriteLine("E: Finish");
-            Console.WriteLine("O: Open door");
-            Console.WriteLine("C: Close door");
-            Console.WriteLine("R: RFID");
-            Console.WriteLine("K: Simulate connection");
-            Console.WriteLine("L: Simulate overload");
-            Console.WriteLine("_____________________________");
-
             bool finish = false;
             do
             {
@@ -54,7 +46,7 @@ namespace ChargeCabinetApp
 
                     case 'O':
                         //_door.DoorOpened();
-                        _door.SetDoorState( true);
+                        _door.SetDoorState(true);
                         break;
 
                     case 'C':

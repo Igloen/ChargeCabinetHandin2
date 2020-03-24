@@ -29,8 +29,6 @@ namespace ChargeCabinetLibrary
 
         private string logFile = "logfile.txt";                             // Navnet på systemets log-fil
 
-        public bool _doorOpen { get; set;} 
-
 
         public StationControl(IDoor door, IRFidReader reader, IChargeControl chargeControl)
         {

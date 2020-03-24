@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,15 +9,16 @@ namespace ChargeCabinetLibrary
 {
     public class Door : IDoor
     {
-        public bool _doorOpen;
-        public bool _doorLocked; 
+        public bool DoorOpen { get; private set; }
+        public bool DoorLocked { get; private set; } 
 
         public event EventHandler<DoorStateChangedEventArgs> DoorChangedEvent;
 
         public void LockDoor()
         {
-            OnDoorStateChanged(new DoorStateChangedEventArgs { StateLocked = true });
-            //OnDoorStateChanged(new DoorStateChangedEventArgs { StateOpen = false });
+            DoorLocked = true;
+
+            
         }
 
         public void UnlockDoor()
@@ -27,10 +29,10 @@ namespace ChargeCabinetLibrary
 
         public void SetDoorState(bool state)
         {
-            if (state != _doorOpen)
+            if (state != DoorOpen)
             {
                 OnDoorStateChanged(new DoorStateChangedEventArgs { StateOpen = state});
-                _doorOpen = state;
+                DoorOpen = state;
             }
         }
 
