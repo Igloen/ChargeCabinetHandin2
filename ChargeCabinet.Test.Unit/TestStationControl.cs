@@ -29,7 +29,7 @@ namespace ChargeCabinet.Test.Unit
             _usbCharger = new UsbChargerSimulator();
             _door = new Door();
             _rfidReader = new RFidReader();
-            _chargeControl = Substitute.For<IChargeControl>();
+            _chargeControl = new ChargeControl(_usbCharger);
             
 
             _uut = new StationControl(_door, _rfidReader, _chargeControl);
@@ -51,17 +51,7 @@ namespace ChargeCabinet.Test.Unit
         }
 
 
-        [Test]
-        public void HandleDoorChangedEventTest()
-        {
-         
-         _door.SetDoorState(true);
-         
-
-            //Assert.That(_receivedEventArgs, Is.Not.Null);
-
-            //Assert.That();
-        }
+     
         
         [TestCase(false,true)]
         [TestCase(true,false)]
@@ -82,12 +72,14 @@ namespace ChargeCabinet.Test.Unit
         [TestCase(false, false, 323)]
         [TestCase(true, true, 23)]
         [TestCase(false, true, 13)]
-        public void RFidDetectetEventChanged_TestState(bool Connection, bool Doorstate, int RFid)
+        public void RFidDetectetEventChanged_TestStationStartCharge(bool Connection, bool Doorstate, int RFid)
         {
 
-            _usbCharger.SimulateConnected(Connection);
-            _door.SetDoorState(Doorstate);
             
+            _door.SetDoorState(Doorstate);
+            _usbCharger.SimulateConnected(Connection);
+
+
             _rfidReader.SetID(RFid);
 
             Assert.That(_receivedEventArgsRFid,Is.Not.Null);
@@ -96,12 +88,26 @@ namespace ChargeCabinet.Test.Unit
 
         }
 
-        
-        
-        [Test]
-        public void DoorOpenTest()
+
+        [TestCase(true, false, 123,123)]
+        [TestCase(true, false, 456, 456)]
+        [TestCase(true, false, 123,456)]
+        [TestCase(true, false, 123, 786)]
+        public void RFidDetectetEventChanged_TestStationEndCharge(bool Connection, bool Doorstate, int RFidStart, int RFidEnd)
         {
-            
+
+            _door.SetDoorState(Doorstate);
+            _usbCharger.SimulateConnected(Connection);
+            _rfidReader.SetID(RFidStart);
+
+            _rfidReader.SetID(RFidEnd);
+
+
+
+            Assert.That(_receivedEventArgsRFid, Is.Not.Null);
+
+
+
         }
 
 
