@@ -51,17 +51,7 @@ namespace ChargeCabinet.Test.Unit
         }
 
 
-        [Test]
-        public void HandleDoorChangedEventTest()
-        {
-         
-         _door.SetDoorState(true);
-         
-
-            //Assert.That(_receivedEventArgs, Is.Not.Null);
-
-            //Assert.That();
-        }
+     
         
         [TestCase(false,true)]
         [TestCase(true,false)]
@@ -82,7 +72,7 @@ namespace ChargeCabinet.Test.Unit
         [TestCase(false, false, 323)]
         [TestCase(true, true, 23)]
         [TestCase(false, true, 13)]
-        public void RFidDetectetEventChanged_TestState(bool Connection, bool Doorstate, int RFid)
+        public void RFidDetectetEventChanged_TestStationStartCharge(bool Connection, bool Doorstate, int RFid)
         {
 
             
@@ -98,12 +88,23 @@ namespace ChargeCabinet.Test.Unit
 
         }
 
-        
-        
-        [Test]
-        public void DoorOpenTest()
+
+        [TestCase(true, false, 123)]
+        public void RFidDetectetEventChanged_TestStationEndCharge(bool Connection, bool Doorstate, int RFid)
         {
-            
+
+            _door.SetDoorState(Doorstate);
+            _usbCharger.SimulateConnected(Connection);
+            _rfidReader.SetID(RFid);
+
+            _rfidReader.SetID(RFid);
+
+
+
+            Assert.That(_receivedEventArgsRFid, Is.Not.Null);
+
+
+
         }
 
 
