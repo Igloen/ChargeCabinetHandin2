@@ -29,7 +29,7 @@ namespace ChargeCabinet.Test.Unit
             _usbCharger = new UsbChargerSimulator();
             _door = new Door();
             _rfidReader = new RFidReader();
-            _chargeControl = Substitute.For<IChargeControl>();
+            _chargeControl = new ChargeControl(_usbCharger);
             
 
             _uut = new StationControl(_door, _rfidReader, _chargeControl);
@@ -85,9 +85,11 @@ namespace ChargeCabinet.Test.Unit
         public void RFidDetectetEventChanged_TestState(bool Connection, bool Doorstate, int RFid)
         {
 
-            _usbCharger.SimulateConnected(Connection);
-            _door.SetDoorState(Doorstate);
             
+            _door.SetDoorState(Doorstate);
+            _usbCharger.SimulateConnected(Connection);
+
+
             _rfidReader.SetID(RFid);
 
             Assert.That(_receivedEventArgsRFid,Is.Not.Null);
