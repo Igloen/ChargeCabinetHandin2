@@ -16,9 +16,9 @@ namespace ChargeCabinetLibrary
 
         public void LockDoor()
         {
-            DoorLocked = true;
+            OnDoorStateChanged(new DoorStateChangedEventArgs { StateLocked = true });
 
-            
+
         }
 
         public void UnlockDoor()

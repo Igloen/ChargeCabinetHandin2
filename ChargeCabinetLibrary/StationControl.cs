@@ -116,7 +116,7 @@ namespace ChargeCabinetLibrary
                 _state = LadeskabState.DoorOpen;
             }
 
-            if (e.StateOpen == false)                   // Når en person lukker skabet
+            if (e.StateOpen == false && e.StateLocked == false)                   // Når en person lukker skabet
             {
                 DoorClosed();
                 _state = LadeskabState.Available;
