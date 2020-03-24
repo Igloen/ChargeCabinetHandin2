@@ -89,15 +89,18 @@ namespace ChargeCabinet.Test.Unit
         }
 
 
-        [TestCase(true, false, 123)]
-        public void RFidDetectetEventChanged_TestStationEndCharge(bool Connection, bool Doorstate, int RFid)
+        [TestCase(true, false, 123,123)]
+        [TestCase(true, false, 456, 456)]
+        [TestCase(true, false, 123,456)]
+        [TestCase(true, false, 123, 786)]
+        public void RFidDetectetEventChanged_TestStationEndCharge(bool Connection, bool Doorstate, int RFidStart, int RFidEnd)
         {
 
             _door.SetDoorState(Doorstate);
             _usbCharger.SimulateConnected(Connection);
-            _rfidReader.SetID(RFid);
+            _rfidReader.SetID(RFidStart);
 
-            _rfidReader.SetID(RFid);
+            _rfidReader.SetID(RFidEnd);
 
 
 
