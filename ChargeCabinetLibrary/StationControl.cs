@@ -21,10 +21,11 @@ namespace ChargeCabinetLibrary
         // Her mangler flere member variable
         private LadeskabState _state;
         private IChargeControl _chargeControl;
-        private IRFidReader _reader; 
-        private int _oldId;
+        private IRFidReader _reader;
         private IDoor _door;
         private DoorStateChangedEventArgs _doorState;
+        private int _oldId;
+
 
         private string logFile = "logfile.txt";                             // Navnet på systemets log-fil
 
@@ -110,7 +111,7 @@ namespace ChargeCabinetLibrary
 
         private void HandleDoorChangedEvent(object sender, DoorStateChangedEventArgs e)
         {
-            if (e.StateOpen == true)                     //Når en person åbner skabet
+            if (e.StateOpen == true && e.StateLocked == false)                     //Når en person åbner skabet
             {
                 DoorOpened();
                 _state = LadeskabState.DoorOpen;
