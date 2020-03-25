@@ -98,7 +98,7 @@ namespace ChargeCabinet.Test.Unit
         {
 
             _door.SetDoorState(Doorstate);
-            _usbCharger.SimulateConnected(Connection);
+            _chargeControl.IsConnected().Returns(Connection);
             _rfidReader.SetID(RFidStart);
 
             _rfidReader.SetID(RFidEnd);
