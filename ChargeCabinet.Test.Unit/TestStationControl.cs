@@ -89,7 +89,7 @@ namespace ChargeCabinet.Test.Unit
 
         }
 
-
+        
         [TestCase(true, false, 123,123)]
         [TestCase(true, false, 456, 456)]
         [TestCase(true, false, 123,456)]
