@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using ChargeCabinetLibrary;
 using NSubstitute;
+using NSubstitute.ReceivedExtensions;
 
 namespace ChargeCabinet.Test.Unit
 {
@@ -26,10 +27,11 @@ namespace ChargeCabinet.Test.Unit
         [SetUp]
         public void Setup()
         {
-            _usbCharger = new UsbChargerSimulator();
-            _door = new Door();
-            _rfidReader = new RFidReader();
-            _chargeControl = new ChargeControl(_usbCharger);
+           
+           _rfidReader = new RFidReader();
+           _usbCharger = Substitute.For<IUsbCharger>();
+            _chargeControl = Substitute.For<IChargeControl>();
+            _door = Substitute.For<IDoor>();
             
 
             _uut = new StationControl(_door, _rfidReader, _chargeControl);
@@ -75,10 +77,9 @@ namespace ChargeCabinet.Test.Unit
         public void RFidDetectetEventChanged_TestStationStartCharge(bool Connection, bool Doorstate, int RFid)
         {
 
-            
-            _door.SetDoorState(Doorstate);
-            _usbCharger.SimulateConnected(Connection);
 
+            _door.SetDoorState(Doorstate);
+            _chargeControl.IsConnected().Returns(Connection);
 
             _rfidReader.SetID(RFid);
 

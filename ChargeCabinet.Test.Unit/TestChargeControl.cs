@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ChargeCabinetLibrary;
 using NSubstitute;
+using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 
 namespace ChargeCabinet.Test.Unit
@@ -21,7 +22,7 @@ namespace ChargeCabinet.Test.Unit
         public void Setup()
         {
             _usbCharger = new UsbChargerSimulator();
-
+            
             _uut = new ChargeControl(_usbCharger);
 
             _receivedEventArgs = null;
@@ -41,14 +42,9 @@ namespace ChargeCabinet.Test.Unit
         {
             _uut.HandleCurrentValueEvent(_usbCharger, new CurrentEventArgs() { Current = CurrentValue });
 
+
             Assert.That(_uut._state, Is.EqualTo(2));
 
-
-            // _usbCharger.SimulateConnected(true);
-            // _usbCharger.SimulateOverload(false);
-            //_usbCharger.StartCharge();
-
-            // Assert.That(_uut._state,Is.EqualTo(2));
 
         }
 
