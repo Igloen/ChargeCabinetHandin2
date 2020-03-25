@@ -29,10 +29,10 @@ namespace ChargeCabinet.Test.Unit
         {
            
            _rfidReader = new RFidReader();
-           _usbCharger = Substitute.For<IUsbCharger>();
+           _door = new Door();
+            _usbCharger = Substitute.For<IUsbCharger>();
             _chargeControl = Substitute.For<IChargeControl>();
-            _door = Substitute.For<IDoor>();
-            
+
 
             _uut = new StationControl(_door, _rfidReader, _chargeControl);
 
