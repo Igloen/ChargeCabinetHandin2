@@ -10,28 +10,28 @@ namespace ChargeCabinetLibrary
     public class Door : IDoor
     {
         public bool DoorOpen { get; private set; }
-        public bool DoorLocked { get; private set; } 
 
         public event EventHandler<DoorStateChangedEventArgs> DoorChangedEvent;
+        public event EventHandler<LockStateChangedEventArgs> LockChangedEvent;
+
 
         public void LockDoor()
         {
-            OnDoorStateChanged(new DoorStateChangedEventArgs { StateLocked = true });
-            DoorLocked = true;
+            OnLockStateChanged(new LockStateChangedEventArgs() { StateLocked = true });
+            
 
         }
 
         public void UnlockDoor()
         {
-            OnDoorStateChanged(new DoorStateChangedEventArgs{ StateLocked = false});
-            DoorLocked = false;
+            OnLockStateChanged(new LockStateChangedEventArgs(){ StateLocked = false});
         }
 
         public void SetDoorState(bool state)
         {
             if (state != DoorOpen)
             {
-                OnDoorStateChanged(new DoorStateChangedEventArgs { StateOpen = state,StateLocked = DoorLocked});
+                OnDoorStateChanged(new DoorStateChangedEventArgs { StateOpen = state});
                 DoorOpen = state;
             }
         }
@@ -40,6 +40,11 @@ namespace ChargeCabinetLibrary
         public virtual void OnDoorStateChanged(DoorStateChangedEventArgs e)
         {
             DoorChangedEvent?.Invoke(this, e);
+        }
+
+        public virtual void OnLockStateChanged(LockStateChangedEventArgs e)
+        {
+            LockChangedEvent?.Invoke(this, e);
         }
 
     }

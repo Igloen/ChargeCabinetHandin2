@@ -52,9 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChargeControl.cs" />
+    <Compile Include="ConsoleWriter.cs" />
     <Compile Include="Door.cs" />
+    <Compile Include="FileLogger.cs" />
     <Compile Include="IChargeControl.cs" />
+    <Compile Include="IConsoleWriter.cs" />
     <Compile Include="IDoor.cs" />
+    <Compile Include="IFileLogger.cs" />
     <Compile Include="IRFidReader.cs" />
     <Compile Include="IUsbCharger.cs" />
     <Compile Include="RFidReader.cs" />
