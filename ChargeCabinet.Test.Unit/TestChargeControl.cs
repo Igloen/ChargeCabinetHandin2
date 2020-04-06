@@ -17,7 +17,6 @@ namespace ChargeCabinet.Test.Unit
         private IChargeControl _uut;
         private IUsbCharger _usbCharger;
         private IConsoleWriter _consoleWriter;
-        private CurrentEventArgs _receivedEventArgs;
 
         [SetUp]
         public void Setup()
@@ -26,13 +25,6 @@ namespace ChargeCabinet.Test.Unit
             _consoleWriter = Substitute.For<IConsoleWriter>();
 
             _uut = new ChargeControl(_usbCharger, _consoleWriter);
-
-            _receivedEventArgs = null;
-
-            _usbCharger.CurrentValueEvent += (o, args) =>
-            {
-                _receivedEventArgs = args;
-            };
 
 
         }
@@ -58,6 +50,16 @@ namespace ChargeCabinet.Test.Unit
 
         }
 
+       
+        [TestCase(0)]
+        public void testCurrentCharge_State_NothingHappens(double CurrentValue)
+        {
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() { Current = CurrentValue });
+
+            Assert.That(_uut._state, Is.EqualTo(0));
+        }
+
+
         [TestCase(499, 2)]
         [TestCase(500, 2)]
         [TestCase(501, 3)]
@@ -70,51 +72,38 @@ namespace ChargeCabinet.Test.Unit
         }
 
         [Test]
-        public void testCurrentCharge_State_NotConnected()
+        public void testCurrentCharge_StartCharge()
         {
             _usbCharger.SimulateConnected(false);
             _uut.StartCharge();
-            //Assert.That(_usbCharger);
 
-            Assert.That(_usbCharger.StartCharg.Recived(this,2));
-
+            _usbCharger.Received(1).StartCharge();
 
         }
 
+        [Test]
+        public void testCurrentCharge_StopCharge()
+        {
+            _usbCharger.SimulateConnected(false);
+            _uut.StopCharge();
 
+            _usbCharger.Received(1).StopCharge();
+
+        }
 
         [TestCase(true)]
         [TestCase(false)]
-        public void testConnected(bool state)
+        public void testConnected(bool connection)
         {
+            _uut.StartCharge(); 
 
-            _usbCharger.SimulateConnected(state);
+            _usbCharger.Connected.Returns(connection);
 
-            Assert.That(_uut.IsConnected(), Is.EqualTo(state));
+            Assert.That(_uut.IsConnected(), Is.EqualTo(connection));
 
         }
 
-        [Test]
-        public void TestStartCharge()
-        {
-
-            _uut.StartCharge();
-
-            Assert.That(_receivedEventArgs, Is.Not.Null);
-
-        }
-
-        [Test]
-        public void TestStopCharge()
-        {
-
-            _uut.StopCharge();
-
-            Assert.That(_receivedEventArgs, Is.Not.Null);
-
-        }
-
-
+       
 
     }
 }
