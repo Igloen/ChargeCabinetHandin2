@@ -13,12 +13,15 @@ namespace ChargeCabinetApp
         static void Main(string[] args)
         {
             // Assemble your system here from all the classes
-            IRFidReader _rfidReader = new RFidReader();
             IDoor _door = new Door();
+            IConsoleWriter _consoleWriter = new ConsoleWriter();
+            IRFidReader _rfidReader = new RFidReader();
             IUsbCharger _charger = new UsbChargerSimulator();
+            IFileLogger _fileLogger = new FileLogger();
+
             
             IChargeControl _chargeControl = new ChargeControl(_charger);
-            StationControl _stationControl = new StationControl(_door, _rfidReader, _chargeControl);
+            StationControl _stationControl = new StationControl(_door, _rfidReader, _chargeControl,_fileLogger,_consoleWriter);
 
 
             //Use this

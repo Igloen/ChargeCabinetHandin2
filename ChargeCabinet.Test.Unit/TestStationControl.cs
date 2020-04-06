@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using ChargeCabinetLibrary;
 using NSubstitute;
+using NSubstitute.ReceivedExtensions;
 
 namespace ChargeCabinet.Test.Unit
 {
@@ -18,96 +19,82 @@ namespace ChargeCabinet.Test.Unit
         private IRFidReader _rfidReader;
         private IChargeControl _chargeControl;
         private IUsbCharger _usbCharger;
-
-        private DoorStateChangedEventArgs _receivedEventArgsDoor;
-        private RFidChangedEventArgs _receivedEventArgsRFid;
-
+        private IFileLogger _fileLogger;
+        private IConsoleWriter _consoleWriter;
 
         [SetUp]
         public void Setup()
         {
-            _usbCharger = new UsbChargerSimulator();
-            _door = new Door();
-            _rfidReader = new RFidReader();
-            _chargeControl = new ChargeControl(_usbCharger);
-            
-
-            _uut = new StationControl(_door, _rfidReader, _chargeControl);
-
-            _receivedEventArgsDoor = null;
-            _receivedEventArgsRFid = null;
+           
+           _rfidReader = Substitute.For<IRFidReader>();
+           _door = Substitute.For<IDoor>();
+           _fileLogger = Substitute.For<IFileLogger>();
+            _usbCharger = Substitute.For<IUsbCharger>();
+            _chargeControl = Substitute.For<IChargeControl>();
+            _consoleWriter = Substitute.For<IConsoleWriter>();
 
 
-            _door.DoorChangedEvent += (o, args) =>
-            {
-                _receivedEventArgsDoor = args;
-            };
+            _uut = new StationControl(_door, _rfidReader, _chargeControl,_fileLogger,_consoleWriter);
 
-            _rfidReader.RFidChangedEvent += (o, args) =>
-            {
-                _receivedEventArgsRFid = args;
-            };
+           
 
         }
 
 
-     
-        
-        [TestCase(false,true)]
-        [TestCase(true,false)]
-        public void HandleDoorChangedEvent_TestStates(bool preState,bool State)
+
+        [TestCase(true, false, true)]
+        [TestCase(false, false,false)]
+        [TestCase(false,true,false)]
+        [TestCase(true,true,false)]
+        public void HandleDoorChangedEvent_TestStates(bool stateDoor, bool stateLock, bool result)
         {
-            if (preState == true)
-            {
-                _door.SetDoorState(preState);
+            _door.LockChangedEvent += Raise.EventWith(new LockStateChangedEventArgs() {StateLocked = stateLock});
+            _door.DoorChangedEvent += Raise.EventWith( new DoorStateChangedEventArgs(){StateOpen = stateDoor});
 
-            }
-            _door.SetDoorState(State);
-
-            Assert.That(_receivedEventArgsDoor, Is.Not.True);
+            Assert.That(_uut._doorOpenState,Is.EqualTo(result));
 
         }
 
-        [TestCase(true,false,123)]
-        [TestCase(false, false, 323)]
-        [TestCase(true, true, 23)]
-        [TestCase(false, true, 13)]
-        public void RFidDetectetEventChanged_TestStationStartCharge(bool Connection, bool Doorstate, int RFid)
+        [TestCase(true, true)]
+        [TestCase(false, false)]
+        public void HandleLockChangedEvent_TestStates( bool stateLock, bool result)
         {
+            _door.LockChangedEvent += Raise.EventWith(new LockStateChangedEventArgs() { StateLocked = stateLock });
 
+            Assert.That(_uut._doorLockState, Is.EqualTo(result));
+
+        }
+
+        [TestCase(true,false,123,1)]
+        [TestCase(false, false, 323,0)]
+        [TestCase(true, true, 23,2)]
+        [TestCase(false, true, 13,2)]
+        public void RFidDetectetEventChanged_TestStationStartCharge(bool Connection, bool Doorstate, int RFid, int result )
+        {
+            _chargeControl.IsConnected().Returns(Connection);
             
-            _door.SetDoorState(Doorstate);
-            _usbCharger.SimulateConnected(Connection);
+            _door.DoorChangedEvent += Raise.EventWith(new DoorStateChangedEventArgs() { StateOpen = Doorstate });
+            _rfidReader.RFidChangedEvent += Raise.EventWith(new RFidChangedEventArgs() {ID = RFid});
 
-
-            _rfidReader.SetID(RFid);
-
-            Assert.That(_receivedEventArgsRFid,Is.Not.Null);
-
-
+            Assert.That(_uut._stationState, Is.EqualTo(result));
 
         }
 
         
-        [TestCase(true, false, 123,123)]
-        [TestCase(true, false, 456, 456)]
-        [TestCase(true, false, 123,456)]
-        [TestCase(true, false, 123, 786)]
-        public void RFidDetectetEventChanged_TestStationEndCharge(bool Connection, bool Doorstate, int RFidStart, int RFidEnd)
+        [TestCase(123, 123,0)]
+        [TestCase(123, 321, 1)]
+        public void RFidDetectetEventChanged_TestStationEndCharge(int FirstID,int SecondID, int result)
         {
 
-            _door.SetDoorState(Doorstate);
-            _usbCharger.SimulateConnected(Connection);
-            _rfidReader.SetID(RFidStart);
+            _chargeControl.IsConnected().Returns(true);
 
-            _rfidReader.SetID(RFidEnd);
+            _door.DoorChangedEvent += Raise.EventWith(new DoorStateChangedEventArgs() { StateOpen = false });
+            _rfidReader.RFidChangedEvent += Raise.EventWith(new RFidChangedEventArgs() { ID = FirstID });
 
-
-
-            Assert.That(_receivedEventArgsRFid, Is.Not.Null);
+            _rfidReader.RFidChangedEvent += Raise.EventWith(new RFidChangedEventArgs() { ID = SecondID});
 
 
-
+            Assert.That(_uut._stationState, Is.EqualTo(result));
         }
 
 

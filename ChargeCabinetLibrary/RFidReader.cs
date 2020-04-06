@@ -18,7 +18,7 @@ namespace ChargeCabinetLibrary
         }
 
 
-        public virtual void OnRFidChanged(RFidChangedEventArgs e)
+        public void OnRFidChanged(RFidChangedEventArgs e)
         {
             RFidChangedEvent?.Invoke(this, e);
         }

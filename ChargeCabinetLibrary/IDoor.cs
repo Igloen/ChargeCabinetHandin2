@@ -11,6 +11,11 @@ namespace ChargeCabinetLibrary
     public class DoorStateChangedEventArgs : EventArgs
     {
         public bool StateOpen { get; set; }
+
+    }
+
+    public class LockStateChangedEventArgs : EventArgs
+    {
         public bool StateLocked { get; set; }
 
     }
@@ -20,6 +25,7 @@ namespace ChargeCabinetLibrary
     {
         
         event EventHandler<DoorStateChangedEventArgs> DoorChangedEvent;
+        event EventHandler<LockStateChangedEventArgs> LockChangedEvent;
 
         void SetDoorState(bool state);
 

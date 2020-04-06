@@ -10,6 +10,8 @@ namespace ChargeCabinetLibrary
    {
        event EventHandler<RFidChangedEventArgs> RFidChangedEvent;
 
+       void OnRFidChanged(RFidChangedEventArgs e);
+
        void SetID(int newID);
 
    }

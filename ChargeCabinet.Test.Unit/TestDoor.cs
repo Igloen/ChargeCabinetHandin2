@@ -14,19 +14,25 @@ namespace ChargeCabinet.Test.Unit
     public class TestDoor
     {
         private IDoor _uut;
-        private DoorStateChangedEventArgs _receivedEventArgs;
-
+        private DoorStateChangedEventArgs _receivedDoorEventArgs;
+        private LockStateChangedEventArgs _receivedLockEventArgs;
 
         [SetUp]
         public void Setup()
         {
             _uut = new Door();
 
-            _receivedEventArgs = null;
+            _receivedDoorEventArgs = null;
+            _receivedLockEventArgs = null;
 
             _uut.DoorChangedEvent += (o, args) =>
             {
-                _receivedEventArgs = args;
+                _receivedDoorEventArgs = args;
+            };
+
+            _uut.LockChangedEvent += (o, args) =>
+            {
+                _receivedLockEventArgs = args;
             };
         }
 
@@ -35,7 +41,7 @@ namespace ChargeCabinet.Test.Unit
         public void DoorStateChangedEventCalledOnes()
         {
             _uut.SetDoorState(true);
-            Assert.That(_receivedEventArgs, Is.Not.Null);
+            Assert.That(_receivedDoorEventArgs, Is.Not.Null);
 
         }
 
@@ -44,7 +50,7 @@ namespace ChargeCabinet.Test.Unit
         {
             _uut.LockDoor();
 
-            Assert.That(_receivedEventArgs.StateLocked, Is.True);
+            Assert.That(_receivedLockEventArgs.StateLocked, Is.True);
         }
 
         [Test]
@@ -52,7 +58,7 @@ namespace ChargeCabinet.Test.Unit
         {
             _uut.UnlockDoor();
 
-            Assert.That(_receivedEventArgs.StateLocked, Is.False);
+            Assert.That(_receivedLockEventArgs.StateLocked, Is.False);
         }
 
     }
