@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="TestChargeControl.cs" />
     <Compile Include="TestDoor.cs" />
+    <Compile Include="TestFileLogger.cs" />
     <Compile Include="TestRFidReader.cs" />
     <Compile Include="TestStationControl.cs" />
     <Compile Include="TestUsbChargerSimulator.cs" />
