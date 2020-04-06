@@ -17,7 +17,6 @@ namespace ChargeCabinet.Test.Unit
         private IChargeControl _uut;
         private IUsbCharger _usbCharger;
         private IConsoleWriter _consoleWriter;
-        private CurrentEventArgs _receivedEventArgs;
 
         [SetUp]
         public void Setup()
@@ -27,12 +26,6 @@ namespace ChargeCabinet.Test.Unit
 
             _uut = new ChargeControl(_usbCharger, _consoleWriter);
 
-            _receivedEventArgs = null;
-
-            _usbCharger.CurrentValueEvent += (o, args) =>
-            {
-                _receivedEventArgs = args;
-            };
 
 
         }
@@ -70,50 +63,40 @@ namespace ChargeCabinet.Test.Unit
         }
 
         [Test]
-        public void testCurrentCharge_State_NotConnected()
+        public void testCurrentCharge_StartCharge()
         {
-            _usbCharger.SimulateConnected(false);
+            
             _uut.StartCharge();
-            //Assert.That(_usbCharger);
 
-            Assert.That(_usbCharger.StartCharg.Recived(this,2));
-
-
-        }
-
-
-
-        [TestCase(true)]
-        [TestCase(false)]
-        public void testConnected(bool state)
-        {
-
-            _usbCharger.SimulateConnected(state);
-
-            Assert.That(_uut.IsConnected(), Is.EqualTo(state));
-
+            _usbCharger.Received(1).StartCharge();
         }
 
         [Test]
-        public void TestStartCharge()
-        {
-
-            _uut.StartCharge();
-
-            Assert.That(_receivedEventArgs, Is.Not.Null);
-
-        }
-
-        [Test]
-        public void TestStopCharge()
+        public void testCurrentCharge_StopCharge()
         {
 
             _uut.StopCharge();
 
-            Assert.That(_receivedEventArgs, Is.Not.Null);
+            _usbCharger.Received(1).StopCharge();
+
 
         }
 
+
+
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void TestConnection(bool connection)
+        {
+
+            _usbCharger.Connected.Returns(connection);
+
+            Assert.That(_uut.IsConnected(), Is.EqualTo(connection));
+
+            
+
+        }
 
 
     }
