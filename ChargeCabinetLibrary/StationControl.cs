@@ -136,6 +136,7 @@ namespace ChargeCabinetLibrary
         {
             _doorLockState = e.StateLocked;                                        // Når der låses med RFid Reader
         }
+
         private void HandleRFidReaderchangedEvent(object sender, RFidChangedEventArgs e)
         {
             RfidDetected(e.ID);                                                    // Når RFid bliver registreret

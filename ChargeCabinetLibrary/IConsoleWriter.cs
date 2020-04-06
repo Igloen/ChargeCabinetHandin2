@@ -11,7 +11,6 @@ namespace ChargeCabinetLibrary
 
         void DoorOpened();
 
-
         void DoorClosed();
 
         void WrongRFid();
@@ -23,5 +22,9 @@ namespace ChargeCabinetLibrary
         void NotConnectedMessage();
 
         void CloseDoorMessage();
+
+        void FullyChargedMessage();
+        void ChargingMessage();
+        void OverloadMessage();
     }
 }

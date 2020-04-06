@@ -8,8 +8,10 @@ namespace ChargeCabinetLibrary
 {
     public class ChargeControl : IChargeControl
     {
-
         private IUsbCharger _charger;
+
+        private IConsoleWriter _consoleWriter;
+        
         public int _state { get; private set; }
         // 0 = intet sker
         // 2 = oplader
@@ -17,9 +19,10 @@ namespace ChargeCabinetLibrary
         // 3 = Overload
 
 
-        public ChargeControl(IUsbCharger charger)
+        public ChargeControl(IUsbCharger charger, IConsoleWriter consoleWriter)
         {
             _charger = charger;
+            _consoleWriter = consoleWriter;
 
             _charger.CurrentValueEvent += HandleCurrentValueEvent; 
             
@@ -53,19 +56,19 @@ namespace ChargeCabinetLibrary
 
             if (e.Current > 0 && e.Current <= 5)
             {
-                Console.WriteLine("Mobil opladning: 100%");
+                _consoleWriter.FullyChargedMessage();
                 _state = 1;
             }
 
             if (e.Current > 5 && e.Current <= 500)
             {
-                Console.WriteLine("Mobil Opladning: Oplader");
+                _consoleWriter.ChargingMessage();
                 _state = 2;
             }
 
             if (e.Current > 500)
             {
-                System.Console.WriteLine("Der er noget galt, tag straks mobilen ud af laderen.");
+                _consoleWriter.OverloadMessage();
                 _charger.StopCharge();
                 _state = 3;
             }

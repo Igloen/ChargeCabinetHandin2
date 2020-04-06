@@ -43,5 +43,20 @@ namespace ChargeCabinetLibrary
         {
             Console.WriteLine("Døren er ikke lukket og eller din mobil er ikke sat ordenligt i laderen");
         }
+
+        public void FullyChargedMessage()
+        {
+            Console.WriteLine("Mobil opladning: 100%");
+        }
+
+        public void ChargingMessage()
+        {
+            Console.WriteLine("Mobil Opladning: Oplader");
+        }
+
+        public void OverloadMessage()
+        {
+            Console.WriteLine("Der er noget galt, tag straks mobilen ud af laderen.");
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace ChargeCabinetApp
             IFileLogger _fileLogger = new FileLogger();
 
             
-            IChargeControl _chargeControl = new ChargeControl(_charger);
+            IChargeControl _chargeControl = new ChargeControl(_charger, _consoleWriter);
             StationControl _stationControl = new StationControl(_door, _rfidReader, _chargeControl,_fileLogger,_consoleWriter);
 
 
