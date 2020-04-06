@@ -83,8 +83,6 @@ namespace ChargeCabinet.Test.Unit
         }
 
 
-
-
         [TestCase(false)]
         [TestCase(true)]
         public void TestConnection(bool connection)
