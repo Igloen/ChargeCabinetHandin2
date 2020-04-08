@@ -27,7 +27,6 @@ namespace ChargeCabinet.Test.Unit
             _uut = new ChargeControl(_usbCharger, _consoleWriter);
 
 
-
         }
 
         [TestCase(6)]
@@ -50,6 +49,16 @@ namespace ChargeCabinet.Test.Unit
             Assert.That(_uut._state, Is.EqualTo(1));
 
         }
+
+       
+        [TestCase(0)]
+        public void testCurrentCharge_State_NothingHappens(double CurrentValue)
+        {
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() { Current = CurrentValue });
+
+            Assert.That(_uut._state, Is.EqualTo(0));
+        }
+
 
         [TestCase(499, 2)]
         [TestCase(500, 2)]
@@ -80,8 +89,6 @@ namespace ChargeCabinet.Test.Unit
             _usbCharger.Received(1).StopCharge();
 
         }
-
-
 
 
         [TestCase(false)]
