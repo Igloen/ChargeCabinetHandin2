@@ -35,5 +35,7 @@ namespace ChargeCabinetLibrary
 
         void OnDoorStateChanged(DoorStateChangedEventArgs e);
 
+        void OnLockStateChanged(LockStateChangedEventArgs e);
+
     }
 }
