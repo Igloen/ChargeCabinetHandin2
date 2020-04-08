@@ -31,7 +31,7 @@ namespace ChargeCabinet.Test.Unit
         }
 
         [TestCase(6)]
-        [TestCase(243)]
+        [TestCase(499)]
         [TestCase(500)]
         public void testCurrentCharge_State2_charging(double CurrentValue)
         {
@@ -40,9 +40,9 @@ namespace ChargeCabinet.Test.Unit
             Assert.That(_uut._state, Is.EqualTo(2));
         }
 
+        [TestCase(5)]
+        [TestCase(4)]
         [TestCase(3)]
-        [TestCase(2)]
-        [TestCase(1)]
         public void testCurrentCharge_State1_FullyCharged(double CurrentValue)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() {Current = CurrentValue});
@@ -78,7 +78,6 @@ namespace ChargeCabinet.Test.Unit
             _uut.StopCharge();
 
             _usbCharger.Received(1).StopCharge();
-
 
         }
 

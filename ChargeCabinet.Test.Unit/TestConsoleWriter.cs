@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ChargeCabinetLibrary;
+using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 
 namespace ChargeCabinet.Test.Unit
@@ -12,25 +13,20 @@ namespace ChargeCabinet.Test.Unit
     public class TestConsoleWriter
     {
         private IConsoleWriter _uut;
+        
+        
 
         [SetUp]
        public void Setup()
        {
             _uut = new ConsoleWriter();
-
-       }
-
-       [Test]
-       public void ConsoleWrite_()
-       {
-            _uut.DoorOpened();
-
             
 
-
+            
+            
        }
 
-
+      
 
 
    }
